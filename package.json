@@ -11,10 +11,14 @@
         "hdb": "^0.18.3"
     },
     "devDependencies": {
+        "@sap/hdi-deploy": "^4.0.5",
+        "@sap/ux-specification": "^1.90.8",
         "sqlite3": "^5.0.2"
     },
     "scripts": {
-        "start": "cds run"
+        "hana": "cds deploy --to hana:kitchen_store --auto-undeploy",
+        "start": "cds run",
+        "build": "cds build"
     },
     "eslintConfig": {
         "extends": "eslint:recommended",
@@ -42,13 +46,18 @@
         }
     },
     "cds": {
-        "requires": {
-            "db": {
-                "kind": "sql"
+        "preview": {
+            "ui5": {
+                "version": "1.80.2"
             }
         },
         "hana": {
             "deploy-format": "hdbtable"
+        },
+        "requires": {
+            "db": {
+                "kind": "hana"
+            }
         }
     }
 }
