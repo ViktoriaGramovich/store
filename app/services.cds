@@ -1,2 +1,2 @@
 
-using from './kitchen_app_fiori/annotations';
+using from './annotations';

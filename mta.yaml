@@ -15,6 +15,7 @@ build-parameters:
      commands:
       - npm install --production
       - npx -p @sap/cds-dk cds build --production
+      - npx rimraf gen/db/src/gen/data
 
 modules:
  # --------------------- SERVER MODULE ------------------------
@@ -27,6 +28,8 @@ modules:
    requires:
     # Resources extracted from CAP configuration
     - name: kitchen-app-db
+    - name: kitchen-app-uaa
+    - name: kitchen-app-logs
    provides:
     - name: srv-api      # required by consumers of CAP services (e.g. approuter)
       properties:
@@ -42,7 +45,77 @@ modules:
    requires:
     # 'hana' and 'xsuaa' resources extracted from CAP configuration
     - name: kitchen-app-db
+    - name: kitchen-app-uaa
+    - name: kitchen-app-logs
 
+# ------------------ APPLICATION CONTENT ---------------------
+ - name: kitchen-app-app-content
+# ------------------------------------------------------------
+   type: com.sap.application.content
+   path: .
+   requires:
+    - name: kitchen-app-destination
+    - name: kitchen-app-html5-repo-host
+   parameters:
+     content-target: true
+   build-parameters:
+     build-result: resources
+     requires:
+       - name: kitchen-app-kitchen-processor
+         artifacts:
+           - kitchen-processor.zip
+         target-path: resources/
+
+# ------------- APPLICATION: KITCHEN PROCESSOR ----------------
+ - name: kitchen-app-kitchen-processor
+# ------------------------------------------------------------
+   type: html5
+   path: app/kitchen_app_fiori
+   build-parameters:
+     build-result: dist
+     builder: custom
+     commands:
+       - npm run build
+     supported-platforms: []
+# -------------------- DESTINATION CONTENT ------------------------
+ - name: kitchen-app-destinations
+# ------------------------------------------------------------
+   type: com.sap.application.content
+   requires:
+     - name: kitchen-app-uaa
+       parameters:
+         service-key:
+           name: kitchen-app-uaa-key
+     - name: kitchen-app-html5-repo-host
+       parameters:
+         service-key:
+           name: kitchen-app-html5-repo-host-key
+     - name: srv-api
+     - name: kitchen-app-destination
+       parameters:
+         content-target: true
+   parameters:
+     content:
+       instance:
+         destinations:
+           - Authentication: OAuth2UserTokenExchange
+             Name: kitchen-app-app-srv
+             TokenServiceInstanceName: kitchen-app-uaa
+             TokenServiceKeyName: kitchen-app-uaa-key
+             URL: '~{srv-api/srv-url}'
+             sap.cloud.service: kitchen-app.service
+           - Name: kitchen-app-html5-repo-host
+             ServiceInstanceName: kitchen-app-html5-repo-host
+             ServiceKeyName: kitchen-app-html5-repo-host-key
+             sap.cloud.service: kitchen-app.service
+           - Authentication: OAuth2UserTokenExchange
+             Name: kitchen-app-uaa
+             ServiceInstanceName: kitchen-app-uaa
+             ServiceKeyName: kitchen-app-uaa-key
+             sap.cloud.service: kitchen-app.service
+         existing_destinations_policy: update
+   build-parameters:
+     no-source: true
 
 resources:
  # services extracted from CAP configuration
@@ -56,5 +129,46 @@ resources:
      service-plan: hdi-shared
    properties:
      hdi-service-name: ${service-name}
-
-
+#-------------------------------------------------------------
+ - name: kitchen-app-uaa
+# ------------------------------------------------------------
+   type: org.cloudfoundry.managed-service
+   parameters:
+     service: xsuaa
+     service-plan: application
+     path: ./xs-security.json
+     config:
+       xsappname: kitchen-app-${space}    #  name + space dependency
+       tenant-mode: dedicated
+       role-collections:
+         - name: 'RiskManager-${space}'
+           description: Manage Risks
+           role-template-references:
+             - $XSAPPNAME.RiskManager
+         - name: 'RiskViewer-${space}'
+           description: View Risks
+           role-template-references:
+             - $XSAPPNAME.RiskViewer
+# ------------------------------------------------------------
+ - name: kitchen-app-logs
+# ------------------------------------------------------------
+   type: org.cloudfoundry.managed-service
+   parameters:
+     service: application-logs
+     service-plan: lite
+# ------------------------------------------------------------
+ - name: kitchen-app-destination
+# ------------------------------------------------------------
+   type: org.cloudfoundry.managed-service
+   parameters:
+     service: destination
+     service-plan: lite
+     config:
+       HTML5Runtime_enabled: true
+# ------------------------------------------------------------
+ - name: kitchen-app-html5-repo-host
+# ------------------------------------------------------------
+   type: org.cloudfoundry.managed-service
+   parameters:
+     service: html5-apps-repo
+     service-plan: app-host

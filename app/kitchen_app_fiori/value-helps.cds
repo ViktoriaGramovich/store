@@ -1,5 +1,5 @@
-using { epam.sap.dev.kitchen_app.store as my } from '../db/schema';
-using {masterdata} from '../db/master-data';
+using { epam.sap.dev.kitchen_app.store as my } from '../../db/schema';
+using {masterdata} from '../../db/master-data';
 
 //
 // annotations for value helps

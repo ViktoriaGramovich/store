@@ -189,7 +189,7 @@ switch(phase){
       } else { const [{ productUUID, IsActiveEntity }] = req.params
       return this.read(Products, { productUUID, IsActiveEntity })}
     } req.reject (400, `Can't move to the Development, because markets were not assigned to the product.`);
-        }
+        } else req.error(400, `Can't move to the Development, because markets were not assigned to the product.`);
         break;
     case '2':
             //const marketItems = req.data.market

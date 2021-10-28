@@ -9,14 +9,14 @@
     ],
     "main": "webapp/index.html",
     "scripts": {
-        "deploy-config": "npx -p @sap/ux-ui5-tooling fiori add deploy-config cf"
+        "build": "npm run clean && ui5 build --include-task=generateManifestBundle generateCachebusterInfo && npm run zip",
+        "zip": "cd dist && npx bestzip ../kitchen-processor.zip *",
+        "clean": "npx rimraf kitchen-processor.zip dist"
     },
-	"devDependencies": {
+    "devDependencies": {
         "@ui5/cli": "^2.11.1",
         "@ui5/fs": "^2.0.6",
         "@ui5/logger": "^2.0.1",
-        "@sap/ux-ui5-tooling": "1",
-        "rimraf": "3.0.2",
-        "@sap/ux-specification": "latest"
-}
+        "rimraf": "3.0.2"
+    }
 }

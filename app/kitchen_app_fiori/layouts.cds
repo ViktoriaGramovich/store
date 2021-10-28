@@ -1,4 +1,4 @@
-using from '../srv/services';
+using from '../../srv/services';
  
 annotate ProductService.Products with @(
     UI: {

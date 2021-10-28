@@ -1,4 +1,4 @@
-using ProductService from '../srv/services';
+using ProductService from '../../srv/services';
 
 annotate cds.UUID with @Core.Computed  @odata.Type : 'Edm.String';
 annotate ProductService.Products with {

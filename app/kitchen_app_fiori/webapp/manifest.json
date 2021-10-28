@@ -23,7 +23,23 @@
         "sourceTemplate": {
             "id": "ui5template.fiorielements.v4.lrop",
             "version": "1.0.0"
-        }
+        },
+        "crossNavigation": {
+            "inbounds": {
+              "Kitchen-display": {
+                "signature": {
+                  "parameters": {},
+                  "additionalParameters": "allowed"
+                },
+                "semanticObject": "Kitchen",
+                "action": "display"
+              }
+            }
+        }    
+    },
+    "sap.cloud": {
+    "public": true,
+    "service": "kitchen-app.service"
     },
     "sap.ui": {
         "technology": "UI5",
