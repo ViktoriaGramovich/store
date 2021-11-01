@@ -1,12 +1,15 @@
 {
   "welcomeFile": "/index.html",
   "authenticationMethod": "route",
+  "logout": {
+    "logoutEndpoint": "/do/logout"
+  },
   "routes": [
     {
-      "authenticationType": "xsuaa",
+      "authenticationType": "none",
       "csrfProtection": false,
       "source": "^/product/",
-      "destination": "cap-launchpad"
+      "destination": "kitchen-app"
     },
     {
       "source": "^(.*)$",

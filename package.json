@@ -14,7 +14,7 @@
     },
     "devDependencies": {
         "@sap/hdi-deploy": "^4.0.5",
-        "@sap/ux-specification": "^1.90.8",
+        "@sap/ux-specification": "^1.90.13",
         "sqlite3": "^5.0.2"
     },
     "engines": {
@@ -62,10 +62,6 @@
         "requires": {
             "db": {
                 "kind": "hana"
-            },
-            "uaa": {
-                "kind": "xsuaa",
-                "credentials": {}
             }
         }
     }

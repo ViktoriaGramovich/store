@@ -1,34 +1,20 @@
 {
-  "xsappname": "kitchen-app",
+  "xsappname": "fiori",
   "tenant-mode": "dedicated",
   "description": "Security profile of called application",
   "scopes": [
     {
-      "name": "$XSAPPNAME.RiskViewer",
-      "description": "Risk Viewer"
-    },
-    {
-      "name": "$XSAPPNAME.RiskManager",
-      "description": "Risk Manager"
+      "name": "uaa.user",
+      "description": "UAA"
     }
   ],
-  "attributes": [],
   "role-templates": [
     {
-      "name": "RiskViewer",
-      "description": "Risk Viewer",
+      "name": "Token_Exchange",
+      "description": "UAA",
       "scope-references": [
-        "$XSAPPNAME.RiskViewer"
-      ],
-      "attribute-references": []
-    },
-    {
-      "name": "RiskManager",
-      "description": "Risk Manager",
-      "scope-references": [
-        "$XSAPPNAME.RiskManager"
-      ],
-      "attribute-references": []
+        "uaa.user"
+      ]
     }
   ]
 }

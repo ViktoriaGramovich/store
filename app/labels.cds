@@ -1,4 +1,4 @@
-using epam.sap.dev.kitchen_app.store as schema from '../../db/schema';
+using epam.sap.dev.kitchen_app.store as schema from '../db/schema';
 
 annotate schema.Products with @title: '{i18n>productTitle}' {
   productUUID   @UI.Hidden;

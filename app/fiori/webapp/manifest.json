@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "store.kitchenappfiori",
+        "id": "demo.fiori",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -11,7 +11,7 @@
         "description": "{{appDescription}}",
         "dataSources": {
             "mainService": {
-                "uri": "/product/",
+                "uri": "product/",
                 "type": "OData",
                 "settings": {
                     "odataVersion": "4.0"
@@ -24,23 +24,26 @@
             "id": "ui5template.fiorielements.v4.lrop",
             "version": "1.0.0"
         },
-        "crossNavigation": {
+    "crossNavigation": {
             "inbounds": {
-              "Kitchen-display": {
-                "signature": {
-                  "parameters": {},
-                  "additionalParameters": "allowed"
-                },
-                "semanticObject": "Kitchen",
-                "action": "display"
-              }
-            }
-        }    
+                "fe-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "Sample2",
+                    "action": "display",
+                    "title": "Kitchen store application",
+                    "subTitle": "",
+                    "icon": ""
+                }
+            }   
+        }  
     },
     "sap.cloud": {
-    "public": true,
-    "service": "kitchen-app.service"
-    },
+        "public": true,
+        "service": "my_service"
+    },    
     "sap.ui": {
         "technology": "UI5",
         "icons": {
@@ -63,13 +66,17 @@
             "css": []
         },
         "dependencies": {
-            "minUI5Version": "1.94.0",
+            "minUI5Version": "1.95.0",
             "libs": {
                 "sap.ui.core": {},
                 "sap.fe.templates": {}
             }
         },
         "models": {
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "uri": "i18n/i18n.properties"
@@ -146,14 +153,8 @@
                         "name": "sap.fe.templates.ObjectPage",
                         "options": {
                             "settings": {
-                                "entitySet": "Markets",
-                                "navigation": {
-                                    "market": {
-                                        "detail": {
-                                            "route": "OrdersObjectPage"
-                                        }
-                                    }
-                                }
+                                "editableHeaderContent": false,
+                                "entitySet": "Markets"
                             }
                         }
                     }
