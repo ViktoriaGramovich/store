@@ -16,6 +16,7 @@ entity Products : managed {
         height               : Decimal(13, 3);
         depth                : Decimal(13, 3);
         width                : Decimal(13, 3);
+        supplier : Association to Suppliers;
         measure              : Association to one masterdata.UnitOfMeasure;
         CurrencyCode         : Currency;
         productNetAmount     : Decimal(15, 2);
@@ -56,4 +57,11 @@ entity Orders : managed {
         orderTaxAmount   : Decimal(15, 2);
         oderGrossAmount : Decimal(15, 2);
         CurrencyCode      : Currency;
+}
+
+using {  NorthWind as bupa } from '../srv/external/NorthWind';
+
+    entity Suppliers as projection on bupa.Suppliers {
+        key ID: Integer, 
+        Name: String
 }

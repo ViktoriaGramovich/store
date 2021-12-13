@@ -16,6 +16,7 @@ annotate ProductService.Products with {
     productNetAmount @readonly;
     productTotalQuantity @readonly;
     productTaxAmount @readonly;
+    supplier @mandatory;
 }
 
 annotate ProductService.Markets with{

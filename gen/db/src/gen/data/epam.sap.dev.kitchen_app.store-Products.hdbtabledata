@@ -1,0 +1,47 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "EPAM_SAP_DEV_KITCHEN_APP_STORE_PRODUCTS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "epam.sap.dev.kitchen_app.store-Products.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "PRODUCTUUID",
+          "PRODUCTID",
+          "PRICE",
+          "TAXRATE",
+          "WIDTH",
+          "DEPTH",
+          "HEIGHT",
+          "TOPRODUCTGROUP_ID",
+          "PHASE_ID",
+          "MEASURE_MSEHI",
+          "CURRENCYCODE_CODE",
+          "SUPPLIER_ID"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "PRODUCTUUID": "productUUID",
+        "PRODUCTID": "productID",
+        "PRICE": "price",
+        "TAXRATE": "taxrate",
+        "WIDTH": "width",
+        "DEPTH": "depth",
+        "HEIGHT": "height",
+        "TOPRODUCTGROUP_ID": "toProductGroup_id",
+        "PHASE_ID": "phase_id",
+        "MEASURE_MSEHI": "measure_msehi",
+        "CURRENCYCODE_CODE": "CurrencyCode_code",
+        "SUPPLIER_ID": "supplier_ID"
+      }
+    }
+  ]
+}

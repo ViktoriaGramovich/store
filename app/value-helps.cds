@@ -15,6 +15,15 @@ Parameters : [
 ],
 SearchSupported : true
 };
+supplier @Common.ValueList: {
+CollectionPath : 'Suppliers',
+Label : '',
+Parameters : [
+    { $Type: 'Common.ValueListParameterInOut', LocalDataProperty: supplier_ID, ValueListProperty: 'ID'},
+    { $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'Name'}
+],
+SearchSupported : true
+};
   measure @Common.ValueList: {
     CollectionPath : 'UOM',
     Label : '',

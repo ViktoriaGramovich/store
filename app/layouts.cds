@@ -2,7 +2,7 @@ using from '../srv/services';
  
 annotate ProductService.Products with @(
     UI: {
- SelectionFields: [toProductGroup_ID],
+ SelectionFields: [toProductGroup_ID, supplier_ID],
  Identification  : [ {Value: toProductGroup_ID},
    {$Type  : 'UI.DataFieldForAction', Action : 'ProductService.moveToNext',   Label  : '{i18n>moveToNext}'}
  ],
@@ -14,6 +14,7 @@ annotate ProductService.Products with @(
      { $Type : 'UI.DataField', Value: phase_ID, Criticality: phase.criticality, ![@UI.Importance]: #High },
      { $Type : 'UI.DataField', Value: price, ![@UI.Importance]: #High },
      { $Type : 'UI.DataField', Value: taxrate, ![@UI.Importance]: #High },
+     { $Type: 'UI.DataField', Value: supplier_ID, ![@UI.Importance]: #High},
      { $Type : 'UI.DataField', Value: height, ![@UI.Importance]: #High },
      { $Type : 'UI.DataField', Value: width, ![@UI.Importance]: #High },
      { $Type : 'UI.DataField', Value: depth, ![@UI.Importance]: #High }
@@ -52,6 +53,7 @@ annotate ProductService.Products with @(
         ]},
         FieldGroup #Details2 : {Data : [
         {   $Type : 'UI.DataField', Value : phase_ID, Criticality: phase.criticality },
+         {   $Type : 'UI.DataField', Value : supplier_ID },
         ]},
         FieldGroup #Details3 : {Data : [
         {   $Type : 'UI.DataField', Value : depth },

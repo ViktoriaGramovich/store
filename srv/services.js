@@ -1,12 +1,43 @@
 const cds = require('@sap/cds');
 require('./workarounds')
 const db = cds.connect.to ('db')
- 
- //module.exports = function(service) {
-class ProductService extends cds.ApplicationService {
-init() {
- let { Products, Markets, Orders } = this.entities;
+const axios = require('axios');
 
+module.exports = cds.service.impl(async function() {
+// class ProductService extends cds.ApplicationService {
+// init() {
+ let { Products, Markets, Orders} = this.entities;
+
+ const { Suppliers } = this.entities;
+ const service = await cds.connect.to('NorthWind');
+ this.on('READ', 'Suppliers', async req => {
+    return service.run(req.query);
+});
+this.on('READ', 'Persons', async request => {
+    return service.run(request.query);
+}); 
+
+this.on('READ', 'PersonDetails', async request => {
+    return service.run(request.query);
+});
+//  this.on('READ', Suppliers, request => {
+//     var response;
+//     const cqn = SELECT.from(Suppliers)
+//     return resSuppliers = service.tx(request).run(cqn).then(items => {
+//         if (items.length == 0) { // related Case does not exist
+//             return request.error(412, `Related Case with DealID ${
+//                 request.data.ID
+//             } doesn't exist`)
+//         } else { items.forEach(item => {
+//             console.log(item.value);
+//             })
+//         }
+//         });
+//     });
+	// const service = await cds.connect.to('NorthWind');
+	// this.on('READ', Categories, request => {
+	// 	return service.tx(request).run(request.query);
+	// });
 //  const _calculateButtonAvailability = any => {
 //     const marketStatus = any.marketStatus || {}
 //     any.confirmMarketEnabled = marketStatus != true
@@ -234,5 +265,7 @@ switch(phase){
     break;
 }
 })
-return super.init()}}
-module.exports = {ProductService}
+//return super.init()
+})
+//}
+//module.exports = {ProductService}

@@ -16,6 +16,7 @@ annotate schema.Products with @title: '{i18n>productTitle}' {
   toProductGroup @title : '{i18n>ProductName}' @Common.Text: toProductGroup.name    @Common.TextArrangement: #TextLast; 
   measure @title : 'i18n>measure';
   productTotalQuantity @title : '{i18n>totalQuantity}';
+  supplier @title : '{i18n>supplier}' @Common.Text: supplier.Name  @Common.TextArrangement: #TextFirst;
 }
 
  annotate ProductService.Markets with {
